@@ -8,6 +8,8 @@ export default function Login({ setUser }) {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const API = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -15,7 +17,7 @@ export default function Login({ setUser }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:3000/api/login', {
+    fetch(`${API}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
