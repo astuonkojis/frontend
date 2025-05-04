@@ -8,7 +8,7 @@ export default function Login({ setUser }) {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const API = import.meta.env.VITE_API_URL;
+  const API = import.meta.env.VITE_API_URL || 'https://spelione-backend.onrender.com';
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
