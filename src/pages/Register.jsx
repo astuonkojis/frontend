@@ -1,10 +1,12 @@
+// src/pages/Register.jsx
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function Register() {
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL; // ✅ Pridėta API bazinis adresas
+  const API = import.meta.env.VITE_API_URL; // ✅ API iš aplinkos
 
   const [form, setForm] = useState({
     name: '',
@@ -65,7 +67,6 @@ export default function Register() {
       return;
     }
 
-    // Patikrinam captcha backend'e
     try {
       const verifyRes = await fetch(`${API}/api/verify-captcha`, {
         method: 'POST',
