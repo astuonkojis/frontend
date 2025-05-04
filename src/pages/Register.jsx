@@ -4,6 +4,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function Register() {
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL; // ✅ Pridėta API bazinis adresas
+
   const [form, setForm] = useState({
     name: '',
     surname: '',
@@ -25,7 +27,7 @@ export default function Register() {
 
       if (value.trim().length > 0) {
         try {
-          const res = await fetch('http://localhost:3000/api/check-code', {
+          const res = await fetch(`${API}/api/check-code`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: value }),
@@ -65,7 +67,7 @@ export default function Register() {
 
     // Patikrinam captcha backend'e
     try {
-      const verifyRes = await fetch('http://localhost:3000/api/verify-captcha', {
+      const verifyRes = await fetch(`${API}/api/verify-captcha`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: captchaToken }),
@@ -85,7 +87,7 @@ export default function Register() {
     const formWithGroup = { ...form, group_name: groupName };
 
     try {
-      const res = await fetch('http://localhost:3000/api/register', {
+      const res = await fetch(`${API}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formWithGroup),
@@ -118,7 +120,6 @@ export default function Register() {
           <p className="text-sm text-green-700 italic">Jūs būsite priskirtas grupei: <strong>{groupName}</strong></p>
         )}
 
-        {/* ⬇️ čia įterpiamas reCAPTCHA komponentas */}
         <ReCAPTCHA
           sitekey="6LexLC0rAAAAAIOzgSQVTd_KzurvHd45bdqMvmKM"
           onChange={handleCaptchaChange}
